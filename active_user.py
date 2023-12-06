@@ -111,6 +111,39 @@ def calculate_average_churn(data):
     return average_churn
 
 
+def calculate_average_customer_lifetime(data):
+    # Assume 'data' is a DataFrame similar to the cohort heatmap, with each row as a cohort,
+    # and each column as the month since the first activity.
+    
+    total_lifetimes = 0
+    total_users = 0
+
+    # Iterate over each cohort (each row in the DataFrame)
+    for index, row in data.iterrows():
+        consecutive_inactive = 0
+        lifetime = 0
+        
+        # Iterate over each month since the first activity for the cohort
+        for month in range(len(row)):
+            if pd.isna(row[month]) or row[month] == 0:
+                # If the user is inactive or the data is missing, increment the consecutive inactive count
+                consecutive_inactive += 1
+                if consecutive_inactive >= 3:
+                    # If the user has been inactive for 3 or more months, consider them churned
+                    break
+            else:
+                # If the user is active, reset the consecutive inactive count and increment the lifetime
+                consecutive_inactive = 0
+                lifetime += 1
+        
+        # Add the lifetime for this cohort to the total lifetimes
+        total_lifetimes += lifetime
+        total_users += 1  # Increment the total number of users
+
+    # Calculate the average lifetime
+    average_lifetime = total_lifetimes / total_users if total_users else 0
+    return average_lifetime
+
 # Main Streamlit app
 def main():
     st.title("User Activity Analysis")
@@ -145,6 +178,12 @@ def main():
     st.header("Cohort Analysis")
     retention_matrix = cohort_analysis(data)
     st.pyplot(plot_cohort(retention_matrix))        
+
+    # In Streamlit
+    # Assuming you have the cohort data in the DataFrame 'cohort_data'
+    average_lifetime = calculate_average_customer_lifetime(retention_matrix)
+    st.header("Average Customer Lifetime")
+    st.write(f"The average customer lifetime is: {average_lifetime:.2f} months")
 
 
 if __name__ == "__main__":

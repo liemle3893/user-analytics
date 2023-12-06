@@ -1,0 +1,26 @@
+{
+  "lockfile_version": "1",
+  "packages": {
+    "python-full@3.11.6": {
+      "last_modified": "2023-11-23T16:10:41Z",
+      "plugin_version": "0.0.1",
+      "resolved": "github:NixOS/nixpkgs/e8b0430bc4c4235607ae102010dec2ba32e8c0ca#python311Full",
+      "source": "devbox-search",
+      "version": "3.11.6",
+      "systems": {
+        "aarch64-darwin": {
+          "store_path": "/nix/store/jjdr6ppvl2fsp01g208af4av6dlxndvs-python3-3.11.6"
+        },
+        "aarch64-linux": {
+          "store_path": "/nix/store/ki12wgki6ilnfa99397z03m1v0inb3ym-python3-3.11.6"
+        },
+        "x86_64-darwin": {
+          "store_path": "/nix/store/rcnqvj5qj12gpl211vj9bwby59cz0dmb-python3-3.11.6"
+        },
+        "x86_64-linux": {
+          "store_path": "/nix/store/24x255176bz81wga5yfvqwcgr15n0dq8-python3-3.11.6"
+        }
+      }
+    }
+  }
+}
